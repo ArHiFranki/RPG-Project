@@ -6,10 +6,7 @@ namespace RPG.Movement
     [RequireComponent(typeof(NavMeshAgent))]
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private Transform target;
-
         private NavMeshAgent myNavMeshAgent;
-        private Ray lastRay;
 
         private void Awake()
         {
@@ -20,11 +17,20 @@ namespace RPG.Movement
         {
             if (Input.GetMouseButtonDown(0))
             {
-                lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                MoveToCursor();
             }
-            Debug.DrawRay(lastRay.origin, lastRay.direction * 100f, Color.yellow);
+        }
 
-            myNavMeshAgent.destination = target.position;
+        private void MoveToCursor()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(ray, out hit);
+
+            if (hasHit)
+            {
+                myNavMeshAgent.destination = hit.point;
+            }
         }
     }
 }
