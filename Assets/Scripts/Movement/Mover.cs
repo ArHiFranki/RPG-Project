@@ -4,13 +4,16 @@ using UnityEngine.AI;
 namespace RPG.Movement
 {
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Animator))]
     public class Mover : MonoBehaviour
     {
         private NavMeshAgent myNavMeshAgent;
+        private Animator myAnimator;
 
         private void Awake()
         {
             myNavMeshAgent = GetComponent<NavMeshAgent>();
+            myAnimator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -19,6 +22,8 @@ namespace RPG.Movement
             {
                 MoveToCursor();
             }
+
+            UpdateAnimator();
         }
 
         private void MoveToCursor()
@@ -31,6 +36,14 @@ namespace RPG.Movement
             {
                 myNavMeshAgent.destination = hit.point;
             }
+        }
+
+        private void UpdateAnimator()
+        {
+            Vector3 velocity = myNavMeshAgent.velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            float speed = localVelocity.z;
+            myAnimator.SetFloat(AnimatorParameters.ForwardSpeed, speed);
         }
     }
 }
