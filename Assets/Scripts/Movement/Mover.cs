@@ -18,24 +18,12 @@ namespace RPG.Movement
 
         private void Update()
         {
-            if (Input.GetMouseButton(0))
-            {
-                MoveToCursor();
-            }
-
             UpdateAnimator();
         }
 
-        private void MoveToCursor()
+        public void MoveTo(Vector3 destination)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast(ray, out hit);
-
-            if (hasHit)
-            {
-                myNavMeshAgent.destination = hit.point;
-            }
+            myNavMeshAgent.destination = destination;
         }
 
         private void UpdateAnimator()
