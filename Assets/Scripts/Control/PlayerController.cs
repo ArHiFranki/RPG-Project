@@ -1,6 +1,7 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using static UnityEngine.GraphicsBuffer;
 
 namespace RPG.Control
 {
@@ -24,15 +25,9 @@ namespace RPG.Control
 
         private void InteractWithCombat()
         {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-            foreach (RaycastHit hit in hits)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (!hit.transform.TryGetComponent(out CombatTarget target)) continue;
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    myFighter.Attack(target);
-                }
+                AttackCombatTarget();
             }
         }
 
@@ -41,6 +36,18 @@ namespace RPG.Control
             if (Input.GetMouseButton(0))
             {
                 MoveToCursor();
+            }
+        }
+
+        private void AttackCombatTarget()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.transform.TryGetComponent(out CombatTarget target))
+                {
+                    myFighter.Attack(target);
+                }
             }
         }
 
