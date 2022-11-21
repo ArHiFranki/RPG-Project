@@ -1,6 +1,7 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using static UnityEngine.GraphicsBuffer;
 
 namespace RPG.Control
 {
@@ -47,7 +48,7 @@ namespace RPG.Control
             {
                 if (Input.GetMouseButton(0))
                 {
-                    myMover.MoveTo(hit.point);
+                    myMover.StartMoveAction(hit.point);
                 }
                 return true;
             }
