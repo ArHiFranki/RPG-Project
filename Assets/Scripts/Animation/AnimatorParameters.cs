@@ -1,4 +1,4 @@
-namespace RPG.Movement
+namespace RPG.Animation
 {
     public static class AnimatorParameters
     {
