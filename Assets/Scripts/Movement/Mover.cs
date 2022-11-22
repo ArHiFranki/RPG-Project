@@ -1,23 +1,27 @@
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Movement
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Fighter))]
+    [RequireComponent(typeof(ActionScheduler))]
     public class Mover : MonoBehaviour
     {
         private NavMeshAgent myNavMeshAgent;
         private Animator myAnimator;
         private Fighter myFighter;
+        private ActionScheduler myActionScheduler;
 
         private void Awake()
         {
             myNavMeshAgent = GetComponent<NavMeshAgent>();
             myAnimator = GetComponent<Animator>();
             myFighter = GetComponent<Fighter>();
+            myActionScheduler = GetComponent<ActionScheduler>();
         }
 
         private void Update()
@@ -27,6 +31,7 @@ namespace RPG.Movement
 
         public void StartMoveAction(Vector3 destination)
         {
+            myActionScheduler.startAction(this);
             myFighter.CancelAttack();
             MoveTo(destination);
         }

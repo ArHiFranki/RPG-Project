@@ -1,7 +1,6 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
-using static UnityEngine.GraphicsBuffer;
 
 namespace RPG.Control
 {
