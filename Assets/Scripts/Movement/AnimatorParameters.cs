@@ -4,5 +4,6 @@ namespace RPG.Movement
     {
         public const string ForwardSpeed = "forwardSpeed";
         public const string Attack = "attack";
+        public const string Die = "die";
     }
 }
