@@ -6,7 +6,7 @@ namespace RPG.Combat
 {
     [RequireComponent(typeof(Mover))]
     [RequireComponent(typeof(ActionScheduler))]
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] private float weaponRange = 2f;
 
@@ -30,7 +30,7 @@ namespace RPG.Combat
             }
             else
             {
-                myMover.StopMoving();
+                myMover.Cancel();
             }
         }
 
@@ -40,7 +40,7 @@ namespace RPG.Combat
             target = combatTarget.transform;
         }
 
-        public void CancelAttack()
+        public void Cancel()
         {
             target = null;
         }
