@@ -46,6 +46,17 @@ namespace RPG.Combat
             }
         }
 
+        public bool CanAttack(CombatTarget combatTarget)
+        {
+            if (combatTarget == null)
+            {
+                return false;
+            }
+
+            Health combatTargetHealth = combatTarget.GetComponent<Health>();
+            return combatTargetHealth != null && !combatTargetHealth.IsDead;
+        }
+
         public void Attack(CombatTarget combatTarget)
         {
             myActionScheduler.startAction(this);
