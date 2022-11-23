@@ -1,41 +1,46 @@
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Core;
+using RPG.Animation;
 
 namespace RPG.Movement
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Animator))]
-    public class Mover : MonoBehaviour
+    [RequireComponent(typeof(ActionScheduler))]
+    public class Mover : MonoBehaviour, IAction
     {
         private NavMeshAgent myNavMeshAgent;
         private Animator myAnimator;
+        private ActionScheduler myActionScheduler;
 
         private void Awake()
         {
             myNavMeshAgent = GetComponent<NavMeshAgent>();
             myAnimator = GetComponent<Animator>();
+            myActionScheduler = GetComponent<ActionScheduler>();
         }
 
         private void Update()
         {
-            if (Input.GetMouseButton(0))
-            {
-                MoveToCursor();
-            }
-
             UpdateAnimator();
         }
 
-        private void MoveToCursor()
+        public void StartMoveAction(Vector3 destination)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast(ray, out hit);
+            myActionScheduler.startAction(this);
+            MoveTo(destination);
+        }
 
-            if (hasHit)
-            {
-                myNavMeshAgent.destination = hit.point;
-            }
+        public void MoveTo(Vector3 destination)
+        {
+            myNavMeshAgent.destination = destination;
+            myNavMeshAgent.isStopped = false;
+        }
+
+        public void Cancel()
+        {
+            myNavMeshAgent.isStopped = true;
         }
 
         private void UpdateAnimator()
