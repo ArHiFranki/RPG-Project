@@ -8,22 +8,27 @@ namespace RPG.Control
     [RequireComponent(typeof(Fighter))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Mover))]
+    [RequireComponent(typeof(ActionScheduler))]
     public class AIController : MonoBehaviour
     {
         [SerializeField] private float chaseDistance = 5f;
+        [SerializeField] private float suspicionTime = 3f;
 
         private Fighter myFighter;
         private Health myHealth;
         private Mover myMover;
+        private ActionScheduler myActionScheduler;
         private GameObject player;
 
         private Vector3 guardPosition;
+        private float timeSinceLastSawPlayer = Mathf.Infinity;
 
         private void Awake()
         {
             myFighter = GetComponent<Fighter>();
             myHealth = GetComponent<Health>();
             myMover = GetComponent<Mover>();
+            myActionScheduler = GetComponent<ActionScheduler>();
             player = GameObject.FindWithTag(Tags.Player);
         }
 
@@ -38,12 +43,34 @@ namespace RPG.Control
 
             if (InAttackRangeOfPlayer() && myFighter.CanAttack(player))
             {
-                myFighter.Attack(player);
+                timeSinceLastSawPlayer = 0;
+                AttackBehaviour();
+            }
+            else if (timeSinceLastSawPlayer < suspicionTime)
+            {
+                SuspicionBehaviour();
             }
             else
             {
-                myMover.StartMoveAction(guardPosition);
+                GuardBehaviour();
             }
+
+            timeSinceLastSawPlayer += Time.deltaTime;
+        }
+
+        private void AttackBehaviour()
+        {
+            myFighter.Attack(player);
+        }
+
+        private void SuspicionBehaviour()
+        {
+            myActionScheduler.CancelCurrentAction();
+        }
+
+        private void GuardBehaviour()
+        {
+            myMover.StartMoveAction(guardPosition);
         }
 
         private bool InAttackRangeOfPlayer()
