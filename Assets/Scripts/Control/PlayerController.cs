@@ -1,24 +1,30 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
     [RequireComponent(typeof(Mover))]
     [RequireComponent(typeof(Fighter))]
+    [RequireComponent(typeof(Health))]
     public class PlayerController : MonoBehaviour
     {
         private Mover myMover;
         private Fighter myFighter;
+        private Health myHealth;
 
         private void Awake()
         {
             myMover = GetComponent<Mover>();
             myFighter = GetComponent<Fighter>();
+            myHealth = GetComponent<Health>();
         }
 
         private void Update()
         {
+            if (myHealth.IsDead) return;
+
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
         }

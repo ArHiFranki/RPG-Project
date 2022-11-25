@@ -1,21 +1,24 @@
 using UnityEngine;
 using RPG.Animation;
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(ActionScheduler))]
     public class Health : MonoBehaviour
     {
         [SerializeField] private float healthPoints = 100f;
 
         private bool isDead = false;
         private Animator myAnimator;
+        private ActionScheduler myActionScheduler;
 
         public bool IsDead => isDead;
 
         private void Awake()
         {
             myAnimator = GetComponent<Animator>();
+            myActionScheduler = GetComponent<ActionScheduler>();
         }
 
         public void TakeDamage(float damage)
@@ -30,8 +33,11 @@ namespace RPG.Combat
 
         private void Die()
         {
+            if (isDead) return;
+
             isDead = true;
             myAnimator.SetTrigger(AnimatorParameters.Die);
+            myActionScheduler.CancelCurrentAction();
         }
     }
 }

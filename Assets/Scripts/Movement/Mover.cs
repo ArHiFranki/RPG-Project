@@ -8,27 +8,32 @@ namespace RPG.Movement
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(ActionScheduler))]
+    [RequireComponent(typeof(Health))]
     public class Mover : MonoBehaviour, IAction
     {
         private NavMeshAgent myNavMeshAgent;
         private Animator myAnimator;
         private ActionScheduler myActionScheduler;
+        private Health myHealth;
 
         private void Awake()
         {
             myNavMeshAgent = GetComponent<NavMeshAgent>();
             myAnimator = GetComponent<Animator>();
             myActionScheduler = GetComponent<ActionScheduler>();
+            myHealth = GetComponent<Health>();
         }
 
         private void Update()
         {
+            myNavMeshAgent.enabled = !myHealth.IsDead;
+
             UpdateAnimator();
         }
 
         public void StartMoveAction(Vector3 destination)
         {
-            myActionScheduler.startAction(this);
+            myActionScheduler.StartAction(this);
             MoveTo(destination);
         }
 
