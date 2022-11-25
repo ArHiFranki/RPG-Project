@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3828610826871390741, guid: c491f48c0d44f7044ac2f999df3acf7e, type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5918833087405908541, guid: c491f48c0d44f7044ac2f999df3acf7e, type: 3}
       propertyPath: health
       value: 20
@@ -158,3 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2cf1f9ac9dce3040af4c40a34b3d5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4628630809797637452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571215270033729823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912a50465ee3fd94f93009b9e5e959e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 5
+  suspicionTime: 5
