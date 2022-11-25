@@ -1,24 +1,35 @@
 using UnityEngine;
 using RPG.Combat;
 using RPG.Core;
+using RPG.Movement;
 
 namespace RPG.Control
 {
     [RequireComponent(typeof(Fighter))]
     [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(Mover))]
     public class AIController : MonoBehaviour
     {
         [SerializeField] private float chaseDistance = 5f;
 
         private Fighter myFighter;
         private Health myHealth;
+        private Mover myMover;
         private GameObject player;
+
+        private Vector3 guardPosition;
 
         private void Awake()
         {
             myFighter = GetComponent<Fighter>();
             myHealth = GetComponent<Health>();
+            myMover = GetComponent<Mover>();
             player = GameObject.FindWithTag(Tags.Player);
+        }
+
+        private void Start()
+        {
+            guardPosition = transform.position;
         }
 
         private void Update()
@@ -31,7 +42,7 @@ namespace RPG.Control
             }
             else
             {
-                myFighter.Cancel();
+                myMover.StartMoveAction(guardPosition);
             }
         }
 
