@@ -1,22 +1,18 @@
 using UnityEngine;
 using RPG.Combat;
-using RPG.Movement;
 
 namespace RPG.Control
 {
-    [RequireComponent(typeof(Mover))]
     [RequireComponent(typeof(Fighter))]
     public class AIController : MonoBehaviour
     {
         [SerializeField] private float chaseDistance = 5f;
 
-        private Mover myMover;
         private Fighter myFighter;
         private GameObject player;
 
         private void Awake()
         {
-            myMover = GetComponent<Mover>();
             myFighter = GetComponent<Fighter>();
             player = GameObject.FindWithTag(Tags.Player);
         }
