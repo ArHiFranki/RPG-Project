@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5918833087405908541, guid: c491f48c0d44f7044ac2f999df3acf7e, type: 3}
+      propertyPath: healthPoints
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c491f48c0d44f7044ac2f999df3acf7e, type: 3}
 --- !u!4 &6869222590496396538 stripped
@@ -136,6 +140,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3828610826871390736, guid: c491f48c0d44f7044ac2f999df3acf7e, type: 3}
   m_PrefabInstance: {fileID: 7671201153773868782}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &4470614945482369263
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6869222590496396542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1111118113637349730
 MonoBehaviour:
   m_ObjectHideFlags: 0
