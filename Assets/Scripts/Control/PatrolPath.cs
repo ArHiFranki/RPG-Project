@@ -11,7 +11,7 @@ namespace RPG.Control
             for (int i = 0; i < transform.childCount; i++)
             {
                 int j = GetNextIndex(i);
-                Gizmos.color = Color.gray;
+                Gizmos.color = Color.white;
                 Gizmos.DrawSphere(GetWaypointPosition(i), waypointGizmoRadius);
                 Gizmos.DrawLine(GetWaypointPosition(i), GetWaypointPosition(j));
             }
