@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Playables;
+using RPG.Control;
 
 namespace RPG.Cinematics
 {
@@ -16,7 +17,7 @@ namespace RPG.Cinematics
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!alreadyTriggered && other.gameObject.CompareTag("Player"))
+            if (!alreadyTriggered && other.TryGetComponent(out PlayerController playerController))
             {
                 alreadyTriggered = true;
                 myPlayableDirector.Play();
