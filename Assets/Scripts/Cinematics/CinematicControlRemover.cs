@@ -15,7 +15,7 @@ namespace RPG.Cinematics
 
         private void Awake()
         {
-            player = GameObject.FindWithTag("Player");
+            player = GameObject.FindWithTag(Tags.Player);
             myActionScheduler = player.GetComponent<ActionScheduler>();
             myPlayerController = player.GetComponent<PlayerController>();
             myPlayableDirector = GetComponent<PlayableDirector>();
