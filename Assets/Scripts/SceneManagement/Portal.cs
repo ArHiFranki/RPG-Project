@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RPG.Control;
@@ -12,8 +13,16 @@ namespace RPG.SceneManagement
         {
             if (other.TryGetComponent(out PlayerController playerController))
             {
-                SceneManager.LoadScene(sceneToLoad);
+                StartCoroutine(Transition());
             }
+        }
+
+        private IEnumerator Transition()
+        {   
+            DontDestroyOnLoad(gameObject);
+            yield return SceneManager.LoadSceneAsync(sceneToLoad);
+            Debug.Log("Scene Loaded");
+            Destroy(gameObject);
         }
     }
 }
