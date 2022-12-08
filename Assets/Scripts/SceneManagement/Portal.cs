@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 using RPG.Control;
 
 namespace RPG.SceneManagement
@@ -8,6 +9,7 @@ namespace RPG.SceneManagement
     public class Portal : MonoBehaviour
     {
         [SerializeField] private int sceneToLoad;
+        [SerializeField] private Transform spawnPoint;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -21,8 +23,30 @@ namespace RPG.SceneManagement
         {   
             DontDestroyOnLoad(gameObject);
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
-            Debug.Log("Scene Loaded");
+
+            Portal otherPortal = GetOtherPortal();
+            UpdatePlayer(otherPortal);
+
             Destroy(gameObject);
+        }
+
+        private Portal GetOtherPortal()
+        {
+            foreach ( Portal portal in FindObjectsOfType<Portal>())
+            {
+                if (portal == this) continue;
+
+                return portal;
+            }
+
+            return null;
+        }
+
+        private void UpdatePlayer(Portal otherPortal)
+        {
+            GameObject player = GameObject.FindWithTag(Tags.Player);
+            player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position);
+            player.transform.rotation = otherPortal.spawnPoint.rotation;
         }
     }
 }
